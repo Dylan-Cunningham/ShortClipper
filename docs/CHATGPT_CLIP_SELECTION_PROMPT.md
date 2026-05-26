@@ -1,0 +1,117 @@
+# ChatGPT Clip Selection Prompt
+
+Use this prompt with a timestamped transcript exported from Premiere, Descript, Whisper, or another transcript tool.
+
+Upload or paste your transcript after the prompt. Ask ChatGPT to return the human-readable plan first, then the JSON block. ShortClipper can parse either, but the JSON block is the most reliable.
+
+```text
+I am giving you a timestamped transcript from a longer video. I want to create 1-3 strong short-form videos from it.
+
+Your job is to act like a short-form video editor.
+
+Use only the transcript I provide. Do not invent quotes, wording, or timestamps. Choose clips that can be cut directly from the original video and stitched together.
+
+For each short, give me:
+
+1. Short number
+2. Suggested title
+3. Core idea in one sentence
+4. Why this short works
+5. Exact clip pieces to use, with start and end timestamps
+6. A recommended order for those pieces
+7. Whether each piece is required or optional
+8. A suggested opening hook from the transcript
+9. A suggested ending from the transcript
+10. Estimated final runtime
+
+Rules:
+- Prioritize clips that feel like complete thought arcs with a clear hook, main point, and payoff.
+- Prefer 25-75 second shorts.
+- Prefer each short to be one continuous timestamp range.
+- Use 1-2 clip pieces per short whenever possible.
+- Avoid using more than 3 pieces for any short.
+- Do not create jump-cut montages from isolated sentences.
+- Only combine non-contiguous sections if the transition sounds natural and the meaning is preserved.
+- Include the natural lead-in and natural landing for each selected idea.
+- Avoid clips that depend too much on missing context.
+- Avoid rambling, false starts, repeated phrases, and incomplete thoughts where possible.
+- Keep the speaker’s meaning intact.
+- Start and end every clip on complete sentence boundaries whenever possible.
+- If a timestamp range starts or ends awkwardly, include the adjacent sentence instead of cutting a thought short.
+- Never end a short in the middle of a sentence or unfinished thought.
+- The ending must sound like a real conclusion or invitation, not just an interesting sentence.
+- Rank the shorts from strongest to weakest.
+- If only one or two shorts are truly strong, say that instead of forcing three.
+- Preserve timestamp format exactly as shown in the transcript.
+
+Output format:
+
+Short 1 - "Title"
+
+Strength: Strong / Medium / Experimental
+
+Core idea:
+[one sentence]
+
+Why it works:
+[brief explanation]
+
+Use these pieces:
+
+Hook
+[start timestamp] - [end timestamp]
+"[exact transcript text or short excerpt]"
+
+Main point
+[start timestamp] - [end timestamp]
+"[exact transcript text or short excerpt]"
+
+Payoff / Ending
+[start timestamp] - [end timestamp]
+"[exact transcript text or short excerpt]"
+
+Optional pieces:
+[start timestamp] - [end timestamp]
+"[exact transcript text or short excerpt]"
+
+Estimated runtime:
+[time]
+
+Editor notes:
+[short notes about whether the transitions should work, or whether a piece may need trimming]
+
+After the human-readable recommendations, output a JSON block with this exact schema:
+
+```json
+{
+  "shorts": [
+    {
+      "number": 1,
+      "title": "",
+      "coreIdea": "",
+      "strength": "Strong",
+      "estimatedRuntimeSeconds": 0,
+      "segments": [
+        {
+          "label": "Hook",
+          "required": true,
+          "start": "00:00:00:00",
+          "end": "00:00:00:00",
+          "excerpt": ""
+        }
+      ]
+    }
+  ]
+}
+```
+
+Important:
+- Make sure every JSON timestamp is copied exactly from the transcript.
+- Use `required: false` only for optional segments.
+- Do not include comments inside the JSON.
+- Do not include trailing commas in the JSON.
+
+Here is the transcript:
+```
+
+Paste or upload the transcript after the final line.
